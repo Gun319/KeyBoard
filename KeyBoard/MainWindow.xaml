@@ -1,0 +1,158 @@
+﻿<Window x:Class="KeyBoard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KeyBoard" 
+        xmlns:recognize="clr-namespace:KeyBoard.Recognize" d:DataContext="{d:DesignInstance Type=recognize:RecognizationCore}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="1200" Background="Transparent" AllowsTransparency="True" WindowStyle="None" 
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Focusable="False" Loaded="Window_Loaded" 
+        MouseLeftButtonDown="Window_MouseDown" SourceInitialized="Window_SourceInitialized">
+    
+    <Grid Background="#b3bab7" Margin="0,30,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="BtnClose" Padding="8" Margin="10 10 0 0" Height="30" Background="Transparent" BorderThickness="0" 
+                    Click="BtnClose_Click">
+                <Image Source="Resources/imgCha.png"/>
+            </Button>
+        </Grid>
+        <Border Grid.Row="0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5 0" Width="180">
+                <RadioButton x:Name="rbCn" Content="拼音" Style="{StaticResource BoxRadioButton}" Checked="Rb_Checked" Margin="5,0,40,0"/>
+                <RadioButton x:Name="rbHand" Content="手写" Style="{StaticResource BoxRadioButton}" Checked="Rb_Checked" Margin="0,0,710,0"/>
+            </StackPanel>
+        </Border>
+        <Grid Grid.Row="1">
+            <StackPanel Height="30" Orientation="Horizontal" Background="#9d9ba6" VerticalAlignment="Top" HorizontalAlignment="Left"
+                        Margin="100,-30,0,0">
+                <TextBlock Text="{Binding Path=Keys}" VerticalAlignment="Center" FontSize="24"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!--候选词-->
+                <Grid x:Name="gdCandidate">
+                    <Border x:Name="borderSelect" Width="1045" Height="67" CornerRadius="10" BorderBrush="Black" BorderThickness="1"
+                            Background="White" Visibility="Hidden">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0" >
+                                <Button x:Name="btnClear" Template="{StaticResource BtnClear}" Click="BtnClear_Click" Margin="0,0,20,0"/>
+                                <Button x:Name="btnMore" Template="{StaticResource BtnMore}" Click="BtnMore_Click"/>
+                            </StackPanel>
+                            <ItemsControl Height="65" Width="860" ItemsSource="{Binding Alternates}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Tag="cn" Content="{Binding}" Template="{StaticResource BtnCn}" Click="Button_Click"/>
+                                            <Grid Width="1" Height="40" Background="Black"/>
+                                            <Grid Width="1" Height="40" Background="#c3c3c3"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid>
+                    <!--键盘-->
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="keyBoard">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <local:KeyButton Content="1" KeyCode="49" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="2" KeyCode="50" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="3" KeyCode="51" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="4" KeyCode="52" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="5" KeyCode="53" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="6" KeyCode="54" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="7" KeyCode="55" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="8" KeyCode="56" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="9" KeyCode="57" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="0" KeyCode="48" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton KeyCode="8" Template="{StaticResource BtnDel}" Content="退格" Click="KeyButton_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <local:KeyButton Content="Q" KeyCode="81" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="W" KeyCode="87" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="E" KeyCode="69" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="R" KeyCode="82" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="T" KeyCode="84" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="Y" KeyCode="89" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="U" KeyCode="85" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="I" KeyCode="73" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="O" KeyCode="79" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="P" KeyCode="80" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <local:KeyButton Content="A" KeyCode="65" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="S" KeyCode="83" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="D" KeyCode="68" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="F" KeyCode="70" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="G" KeyCode="71" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="H" KeyCode="72" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="J" KeyCode="74" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="K" KeyCode="75" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="L" KeyCode="76" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <local:KeyButton Content="Z" KeyCode="90" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="X" KeyCode="88" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="C" KeyCode="67" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="V" KeyCode="86" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="B" KeyCode="66" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="N" KeyCode="78" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                            <local:KeyButton Content="M" KeyCode="77" Margin="0,0,5,0" Template="{StaticResource BtnLetter}" Click="KeyButton_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <!--手写区-->
+                    <Grid x:Name="gridHandInput" Width="1200" Height="335" Background="#b3bab7" Visibility="Hidden">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Border Width="887" Height="320" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="White">
+                                <Grid Width="877" Height="310" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <InkCanvas x:Name="inkCanvas" StrokeCollected="WritingCanvasOnStrokeCollected"/>
+                                </Grid>
+                            </Border>
+                            <StackPanel VerticalAlignment="Top" Margin="5,0,0,0"> 
+                                <local:KeyButton KeyCode="8" Template="{StaticResource BtnDel}" Margin="0 0 0 10" Content="退格" 
+                                                Click="KeyButton_Click"/> 
+                                <Button Content="清空" Click="BtnClear_Click" Template="{StaticResource BtnDel}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+
+            <!--更多候选词-->
+            <Grid x:Name="gridHandList" Background="#9d9ba6" Visibility="Hidden">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <ScrollViewer Height="335" Width="1200" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl Width="1000" ItemsSource="{Binding AlternatesMore}" HorizontalAlignment="Center">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Button Tag="cn" VerticalAlignment="Top" HorizontalAlignment="Left" Content="{Binding}" Template="{StaticResource BtnLetter}" Click="Button_Click" Margin="0,0,5,10"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <Button x:Name="BtnBack" Content="返回" Click="BtnBack_Click" Template="{StaticResource BtnCaps}" Margin="100,0,20,0"/>
+                        <Button Content="清空" Click="BtnClear_Click" Template="{StaticResource BtnCaps}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

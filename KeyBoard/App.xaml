@@ -1,0 +1,107 @@
+﻿<Application x:Class="KeyBoard.App"
+             StartupUri="MainWindow.xaml" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        
+        <Style x:Key="BoxRadioButton" TargetType="{x:Type RadioButton}">
+            <Setter Property="SnapsToDevicePixels" Value="true"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid x:Name="grid" TextBlock.FontFamily="微软雅黑" TextBlock.FontSize="30" TextBlock.FontWeight="Regular" TextBlock.Foreground="Black">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <ContentPresenter HorizontalAlignment="Center" SnapsToDevicePixels="True"/>
+                                <Grid x:Name="line" Width="60" Height="4" Background="Transparent" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <!--触发器：设置选中状态符号-->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="grid" Property="TextBlock.Foreground" Value="#0090ff"/>
+                                <Setter TargetName="line" Property="Background" Value="#0090ff"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--关闭-->
+        <ControlTemplate x:Key="BtnClear" TargetType="{x:Type Button}">
+            <Grid x:Name="grid" TextBlock.FontFamily="微软雅黑" TextBlock.FontSize="18" TextBlock.FontWeight="Regular" TextBlock.Foreground="Black">
+                <Image Source="Resources\imgCha.png" Stretch="None" HorizontalAlignment="Center"/>
+                <ContentPresenter HorizontalAlignment="Center" SnapsToDevicePixels="True" Margin="0,0,0,0"/>
+            </Grid>
+        </ControlTemplate>
+    
+        <!--更多-->
+        <ControlTemplate x:Key="BtnMore" TargetType="{x:Type Button}">
+            <Grid x:Name="grid" TextBlock.FontFamily="微软雅黑" TextBlock.FontSize="18" TextBlock.FontWeight="Regular" TextBlock.Foreground="Black">
+                <Image Source="Resources\imgMore.png" Width="42" Stretch="Uniform" HorizontalAlignment="Center"/>
+                <ContentPresenter HorizontalAlignment="Center" SnapsToDevicePixels="True" Margin="0,0,0,0"/>
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="BtnCn" TargetType="{x:Type Button}">
+            <Grid x:Name="grid" Width="120" Height="65" TextBlock.FontFamily="微软雅黑" TextBlock.FontSize="40" TextBlock.FontWeight="Regular" TextBlock.Foreground="Black">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True" Margin="0,0,0,0"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter TargetName="grid" Property="TextBlock.Foreground" Value="#0090ff"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="BtnLetter" TargetType="{x:Type Button}">
+            <Border x:Name="border" Width="100" Height="70" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="White" TextBlock.FontFamily="微软雅黑" TextBlock.FontSize="30" TextBlock.FontWeight="Regular" TextBlock.Foreground="Black">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter TargetName="border" Property="Background" Value="#58575e"/>
+                    <Setter TargetName="border" Property="TextBlock.Foreground" Value="White"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="BtnCaps" TargetType="{x:Type Button}">
+            <Border x:Name="border" Width="152" Height="60" Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="Black" BorderThickness="1" TextBlock.FontFamily="微软雅黑" TextBlock.FontSize="30" TextBlock.FontWeight="Regular">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter TargetName="border" Property="Background" Value="#58575e"/>
+                    <Setter TargetName="border" Property="TextBlock.Foreground" Value="White"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="BtnInputMode" TargetType="{x:Type Button}">
+            <Border x:Name="border" Width="152" Height="60" Background="White" CornerRadius="10" BorderBrush="Black" BorderThickness="1" TextBlock.FontFamily="微软雅黑" TextBlock.FontSize="30" TextBlock.FontWeight="Regular">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter TargetName="border" Property="Background" Value="#58575e"/>
+                    <Setter TargetName="border" Property="TextBlock.Foreground" Value="White"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="BtnDel" TargetType="{x:Type Button}">
+            <Border x:Name="border" Width="120" Height="70" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="White" TextBlock.FontFamily="微软雅黑" TextBlock.FontSize="30" TextBlock.FontWeight="Regular" TextBlock.Foreground="Black" Margin="5 0 0 0">
+                <Grid>
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter TargetName="border" Property="Background" Value="#58575e"/>
+                    <Setter TargetName="border" Property="TextBlock.Foreground" Value="White"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Application.Resources>
+</Application>
