@@ -8,5 +8,5 @@ WPF开发的一款好用的软键盘
 
 #### 效果
 
-![输入图片说明](https://gitee.com/gun_s/key-board/blob/master/KeyBoard/Resources/16271955690.jpg "拼音")
+![输入图片说明](https://gitee.com/gun_s/key-board/raw/master/KeyBoard/Resources/16271955690.jpg "拼音")
 ![输入图片说明](https://gitee.com/gun_s/key-board/raw/master/KeyBoard/Resources/16271957951.jpg "手写")
